@@ -1,4 +1,5 @@
 # openGL
+<pre>
 debian
 
 apt install gcc g++
@@ -8,7 +9,9 @@ apt install freeglut3 freeglut3-dev
 
 ls /usr/include/ | grep GL
 ls /usr/include/GL/
-
+</pre>
+<hr />
+<pre>
 notes:
 root@kube:/usr/include# apt install libglfw3 libglfw3-dev
 Reading package lists... Done
@@ -45,3 +48,4 @@ The following NEW packages will be installed:
 0 upgraded, 6 newly installed, 0 to remove and 0 not upgraded.
 Need to get 1,028 kB of archives.
 After this operation, 3,897 kB of additional disk space will be used.
+</pre>
