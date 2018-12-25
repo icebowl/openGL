@@ -20,10 +20,15 @@ void drawTriangle()
                 glVertex3f(0.7, 0.7, 0);
                 glVertex3f(0, -1, 0);
         glEnd();
-
+        glColor3f(1.0, 1.0, 0.0);
         glBegin(GL_LINES);
         glVertex3f(0.0, 0.0, 0.0);
         glVertex3f(15, 0, 0);
+        glEnd();
+        glColor3f(1.0, 0.0, 0.0);
+        glBegin(GL_LINES);
+          glVertex2f(0, 0);
+          glVertex2f(200, 200);
         glEnd();
 
 
