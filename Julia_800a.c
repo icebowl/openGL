@@ -12,15 +12,16 @@ void plot2D(float x,float y, float red, float green, float blue){
 
 void drawPoints(){
     int scale = 400;
-    int colors = 64;
+    int colors = 3;
+    float setcolor = 0;
     int iterations = 1000;
-    int limit = 100;
+    int limit = 1;
     float h,k;
     int count;
     float z,x,y,x1,y1,x2,y2,jd,id;
-
-    float c1 = -1.0;
-    float c2 = 0.0;
+// .34567 .5
+    float c1 = 0.34567;
+    float c2 = 0.5;
     float red = 1.0,green = 0 ,blue = 0.0;
     glClearColor(0.4, 0.4, 0.4, 0.4);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -44,13 +45,15 @@ void drawPoints(){
 						z = (x * x) + (y * y);
 						count++;
 					}while ((count <= iterations) & (z < 4.0));
+          //printf ("c %d ", count);
 						if (count >= limit) {
-      				red = count%colors;
-      				green= count%colors;
-      				blue = count%colors;
+              setcolor = (float)(count % colors);
+      				red =  (float) (1/ setcolor) ;
+              	green= red / 2.0 ;
+      				blue = green / 2.0 ;
       				plot2D(h,k,red,green,blue);
-              printf("drawpoints  %f %f \n",h,k);
-					}
+            //  printf("drawpoints  %f %f \n",h,k);
+				}
 	    	}//end for i
         }//end for j
       // only change code above this line
