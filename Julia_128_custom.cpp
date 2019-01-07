@@ -1,6 +1,7 @@
 // Julia_128_custom.cpp   cwc
 // 181225
 // g++ Julia_128_custom.cpp -lglut -lGL -o Julia128_custom.o
+// ./Julia128_custom.o 0.345 0.565 128  4 1
 //
 #include <stdio.h>
 #include "GL/glut.h"
@@ -27,42 +28,42 @@ void plot2D(float x,float y, float red, float green, float blue){
     glVertex2f(x, y);
 }
 
-array<array<float,3>,128> buildColors(  array<array<float,3>,16> colors){
+array<array<float,3>,128> buildColors(  array<array<float,3>,2> colors){
   array<array<float,3>,128>Colors128;
-    int n; // n is the index between each gradiant end and start
-    int m=0; // m is the multiple
+    int n;
+    int m=0; // m is the counter
     float sr,sg,sb,er,eg,eb,ir,ig,ib;
-    for (n =0;n < 16 ; n++){
+    for (n =0;n < 2 ; n++){
       cout<<"colors n="<<n<<" " << colors[n][0]<<" "<<colors[n][1]<<" "<<colors[n][2]<<endl;
     }
-    while(m < 128){
-          sr = colors[m][0];sg = colors[m][1];sb = colors[m][2];
-          er = colors[m+1][0];eg = colors[m+1][1];eb = colors[m+1][2];
-            ir = round3((er-sr)/8);ig = round3((eg-sg)/8); ib =round3((eb-sb)/8);
-          if(ir < 0.0)ir = ir*-1.0; if(ig < 0.0)ig = ig * -1.0; if(ib < 0.0)ib = ib * -1.0;
+    sr = colors[m][0];sg = colors[m][1];sb = colors[m][2];
+    er = colors[m+1][0];eg = colors[m+1][1];eb = colors[m+1][2];
+      ir = (er-sr)/128;ig = (eg-sg)/128; ib =(eb-sb)/128;
+  //  if(ir < 0.0)ir = ir*-1.0; if(ig < 0.0)ig = ig * -1.0; if(ib < 0.0)ib = ib * -1.0;
 
-          //ir = 0.001; ig = 0.001; ib = 0.001;
-          cout<<"increments " << ir <<" "<<ig<<" "<<ib<<endl;
-          Colors128[m][0] = colors[m][0] ;
-          Colors128[m][1] = colors[m][1];
-          Colors128[m][2] = colors[m][2];
-          for (n = 1; n < 8; n++){
-            Colors128[n+m][0] = Colors128[n+m-1][0] + ir;
-                  if(Colors128[n+m][0] < 0.0)Colors128[n+m][0] = 0.0;
-                if(Colors128[n+m][0] > 1.0)Colors128[n+m][0] = 1.0;
-            Colors128[n+m][1] = Colors128[n+m-1][1] + ig;
-                  if(Colors128[n+m][1] < 0.0)Colors128[n+m][1] = 0.0;
-                    if(Colors128[n+m][1] > 1.0)Colors128[n+m][1] = 1.0;
-            Colors128[n+m][2] = Colors128[n+m-1][2] + ib;
-                  if(Colors128[n+m][2] < 0.0)Colors128[n+m][2] = 0.0;
-                    if(Colors128[n+m][2] > 1.0)Colors128[n+m][2] = 1.0;
-            }
-              m = m + 8;
+    //ir = 0.001; ig = 0.001; ib = 0.001;
+    cout<<"increments " << ir <<" "<<ig<<" "<<ib<<endl;
+    Colors128[m][0] = colors[m][0] ;
+    Colors128[m][1] = colors[m][1];
+    Colors128[m][2] = colors[m][2];
+  m = 1;
+    while(m < 128){
+
+            Colors128[m][0] = Colors128[m-1][0] + ir;
+                  if(Colors128[m][0] < 0.0)Colors128[m][0] = 0.0;
+                if(Colors128[m][0] > 1.0)Colors128[m][0] = 1.0;
+            Colors128[m][1] = Colors128[m-1][1] + ig;
+                  if(Colors128[m][1] < 0.0)Colors128[m][1] = 0.0;
+                    if(Colors128[m][1] > 1.0)Colors128[m][1] = 1.0;
+            Colors128[m][2] = Colors128[m-1][2] + ib;
+                  if(Colors128[m][2] < 0.0)Colors128[m][2] = 0.0;
+                    if(Colors128[m][2] > 1.0)Colors128[m][2] = 1.0;
+
+              m = m + 1;
           //  cout<<" m = "<<m<<endl;
           //   cout<< Colors128[n+m][0]<<" "<<Colors128[n+m][1]<<" "<<Colors128[n+m][2]<<endl;
     }
 for (n =0;n < 129 ; n++){
-         if (n%8 == 0 && n != 0)cout<<" * * end for * *"<<endl;
       cout<<"n="<<n<<" " << Colors128[n][0]<<" "<<Colors128[n][1]<<" "<<Colors128[n][2]<<endl;
     }
 
@@ -71,28 +72,14 @@ for (n =0;n < 129 ; n++){
 
 void drawPoints(){
   //float color256[256][3] = {};
-  array<array<float,3>,16> colors = {{
-    {  0.0 , 0.169 , 0.212 },
-    {   0.027 , 0.212 , 0.259},
-    {   0.345 , 0.431 , 0.459},
-    {   0.396 , 0.482, 0.514},
-    {   0.514 , 0.580 , 0.588},
-      {   0.576 , 0.631 , 0.631},
-      {   0.933 , 0.909, 0.835},
-      {   0.992 , 0.965 , 0.890},
-      {   0.953 , 0.871 , 0.494},
-      {   0.796 , 0.294 , 0.086},
-      {   0.862 , 0.196 , 0.184},
-      {   0.827, 0.212 , 0.510 },
-      {   0.424, 0.443 , 0.769},
-      {   0.149 , 0.545 , 0.824},
-      {   0.165 , 0.631 , 0.596},
-      {   0.255 , 0.522 , 0.6}
+  array<array<float,3>,2> colors = {{
+      {   1.0, 1.0 , 0.9},
+      {   0.149 , 0.545 , 0.824}
     }};
     array<array<float,3>,128>colors128 = buildColors(colors);
     int total_colors = colors_arg;
     int setcolor = 0;
-    int iterations = 10000;
+    int iterations = 1000;
     int limit = limit_arg;
     float h,k;
     int count,maxcount;
