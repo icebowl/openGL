@@ -21,6 +21,42 @@ float round3(float var)
     return (float)value / 1000;
 }
 
+	// radial y radican x
+  int iNewtonMethod (double a, double bi, int root, int limit){
+    int r; //double n;
+    double val = 0;
+    int count = 0;
+		double x0 = a;
+		double yi0 = bi;
+		int n = root;
+		double x1,yi1,na,nbi, da, dbi;
+		int i;
+		long x0long, y0ilong,x1long, y1ilong, longlimit = limit;
+		boolean done = false;
+		while (!done){
+
+			Iproduct ipn = new Iproduct(x0,yi0,n);
+			na = ipn.avalue() - 1; nbi = ipn.bvalue();
+			//iProduct ipd = new Iproduct(x0,yi0,n-1);
+			da = n* ipd.avalue(); dbi = n* ipd.bvalue();
+			DivideImaginary di = new DivideImaginary(na,nbi,da,dbi);
+			x1 = x0 - di.a();
+			yi1 = yi0 - di.b();
+			x0long = (long) (x0 * longlimit);
+			x1long= (long) (x1 * longlimit);
+			y0ilong = (long) (yi0 * longlimit);
+			y1ilong= (long)( yi1 * longlimit);
+			count++;
+						 //
+			if (((x0long == x1long) & (y0ilong == y1ilong))|| (count > 255))done = true;
+			x0 = x1; yi0 = yi1;
+
+		}
+	}
+	int value (){
+		return count;
+	}
+}
 
 void plot2D(float x,float y, float red, float green, float blue){
     glColor3f(red, green, blue);
