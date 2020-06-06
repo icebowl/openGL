@@ -197,6 +197,19 @@ array<array<float,3>,128> buildColors(  array<array<float,3>,3> colors, int numb
        m = m + 1;
             
     }
+    
+    
+    Colors128[0][0] = float(171/255);
+	Colors128[0][1] = float(70/255) ;
+	Colors128[0][2] = float(66/255) ;
+	
+	Colors128[1][0] = float(220/255) ;
+	Colors128[1][1] = float(150/255) ;
+	Colors128[1][2] = float(86/255) ;
+      
+	Colors128[2][0] = float(247/255) ;
+	Colors128[2][1] = float(202/255) ;
+	Colors128[2][2] = float(136/255) ;
 for (n =0;n < 128 ; n++){
     cout<<"n="<<n<<" " << Colors128[n][0]<<" "<<Colors128[n][1]<<" "<<Colors128[n][2]<<endl;
     }

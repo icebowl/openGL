@@ -124,6 +124,9 @@ array<array<float,3>,128> buildColors(  array<array<float,3>,3> colors, int numb
   array<array<float,3>,128>Colors128;
     int n;
     int m=0; // m is the counter
+    int i1, i2, i3 ;//intervals
+    float d1,d2,d3 ;// divisor
+    
     float r0,r1,r2,g0,g1,g2,b0,b1,b2;
     float ra0, ra1, ra2, ga0, ga1, ga2, ba0, ba1, ba2;
     r0 = colors[0][0];
@@ -137,19 +140,17 @@ array<array<float,3>,128> buildColors(  array<array<float,3>,3> colors, int numb
     r2 = colors[2][0];
     g2 =  colors[2][1];
     b2 =  colors[2][2];
-
+    i1 = 43; i2 = 87; i3 = 128;
     cout<<r0<<" "<<g0<<" "<<b0<<" start colors "<<endl;
     // * * * * 
-
-    float divisor = (int)(128/3);
-    ra0 = (r1 - r0)/ divisor;  ga0 = (g1 - g0)/ divisor; ba0 = (b0 - b1)/ divisor;
-    ra1 = (r2 - r1)/ divisor;  ga1 = (g2 - g1)/ divisor; ba1 = (b1 - b2)/ divisor;
-    ra2 = (r2 - 0.0)/ divisor; ga2 = (ga2 - 0.0)/ divisor; ba2 = (b2 - 0.0)/ divisor;
-    ra2 = ra2 /divisor; ga2 = ga2/divisor; ba2 = ba2/divisor;
+    d1 = (float) i1; d2 = (float)i2; d3 = (float)i3;
+    ra0 = (r1 - r0)/ d1;  ga0 = (g1 - g0)/ d2; ba0 = (b1 - b0)/ d3;
+    ra1 = (r2 - r1)/ d2;  ga1 = (g2 - g1)/ d2; ba1 = (b2 - b1)/ d2;
+    ra2 = (r2 - 1.0)/ d3; ga2 = (ga2 - 1.0)/ d3; ba2 = (b2 - 1.0)/ d3;
     cout<<ra0<<ga0<<ba0<<" adjust \n\n";
     int interval = 128 / 3;
     while(m < 128){
-      if ( m < interval){
+      if ( m < i1){
 	Colors128[m][0] = r0 ;
 	Colors128[m][1] = g0 ;
 	Colors128[m][2] = b0 ;
@@ -164,34 +165,33 @@ array<array<float,3>,128> buildColors(  array<array<float,3>,3> colors, int numb
 	if (b0 < 0.0)  ba0 = ba0 * -1;
 	
       }
-      if (( m > interval - 1) && ( m <  interval * 2 )){
+      if (( m > i1 - 1) && ( m <  i2 )){
 	Colors128[m][0] = r1 ;
 	Colors128[m][1] = g1 ;
 	Colors128[m][2] = b1 ;
 	r1 = r1 + ra1;
 	g1 = g1 + ga1;
 	b1 = b1 + ba1;
-	if (r1 > 1.0) r1 = 0.0;
-	if (g1 > 1.0) g1 = 0.0;
-	if (b1 > 1.0) b1 = 0.0;
-	if (r1 < 0.0) r1 = 1.0;
-	if (g1 < 0.0) g1 = 1.0;
-	if (b1 < 0.0) b1 = 1.0;
+	if (r1 > 1.0) ra1 = ra1 * -1;
+	if (g1 > 1.0) ga1 = ga1 * -1;
+	if (b1 > 1.0) ba1 = ba1 * -1;
+	if (r1 < 0.0) ra1 = ra1 * -1;
+	if (g1 < 0.0)  ga1 = ga1 * -1;
+	if (b1 < 0.0)  ba1 = ba1 * -1;
       }
-      if ((m > interval * 2 - 1)&& ( m <  128)){
+      if ((m > i2-1) && ( m <  i3)){
 	Colors128[m][0] = r2 ;
 	Colors128[m][1] = g2 ;
 	Colors128[m][2] = b2 ;
 	r2 = r2 + ra2;
 	g2 = g2 + ga2;
 	b2 = b2 + ba2;
-	if (r2 > 1.0) r2 = 0.0;
-	if (r2 > 1.0) r2 = 0.0;
-	if (g2 > 1.0) g2 = 0.0;
-	if (b2 > 1.0) b2 = 0.0;
-	if (r2 < 0.0) r2 = 1.0;
-	if (g2 < 0.0) g2 = 1.0;
-	if (b2 < 0.0) b2 = 1.0;
+	if (r2 > 1.0) ra2 = ra2 * -1;
+	if (g2 > 1.0) ga2 = ga2 * -1;
+	if (b2 > 1.0) ba2 = ba2 * -1;
+	if (r2 < 0.0) ra2 = ra2 * -1;
+	if (g2 < 0.0) ga2 = ga2 * -1;
+	if (b2 < 0.0) ba2 = ba2 * -1;
       }
       
        m = m + 1;
@@ -209,10 +209,13 @@ void drawPoints(){
   // these are the starting colors
         //113,176,159
   // 2d array
+  float cr2, cg2, cb2, cr3,cg3, cb3;
+  cr2 = (float)17/255; cg2 = (float)57/255; cb2 = (float)17/255;
+  cr3 = (float)91/255; cg3 = (float)91/255; cb3 = (float)11/255;
   array<array<float,3>,3> colors = {{
-      {   1.0 , 0.0 , 0.0},
-      {   0.0, 1.0, 0.0},
-      { 0.0, 0.0, 1.0}
+      { 0.443, 0.7 , .62},
+      {1.0, 0.5   , 0.0},
+      { 0.2, 0.7, 0.0}
       }};
   // celeste  0.443, 0.7 , .624
   /*
@@ -246,11 +249,6 @@ void drawPoints(){
     glPointSize(1.0);// set pixel size
     glBegin(GL_POINTS);// points
     // ************************************************************
-	//	for (n =0;n < 128 ; n++){
-    //cout<<"n="<<n<<" " << Colors128[n][0]<<" "<<Colors128[n][1]<<" "<<Colors128[n][2]<<endl;
-   // }
-	//**********************************************************
-
      ABi xyin, xyin1, quo, num, den;
     // * * * *
     bool done = false;

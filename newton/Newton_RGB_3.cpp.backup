@@ -246,11 +246,6 @@ void drawPoints(){
     glPointSize(1.0);// set pixel size
     glBegin(GL_POINTS);// points
     // ************************************************************
-	//	for (n =0;n < 128 ; n++){
-    //cout<<"n="<<n<<" " << Colors128[n][0]<<" "<<Colors128[n][1]<<" "<<Colors128[n][2]<<endl;
-   // }
-	//**********************************************************
-
      ABi xyin, xyin1, quo, num, den;
     // * * * *
     bool done = false;
