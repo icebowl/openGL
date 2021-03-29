@@ -3,9 +3,9 @@
 debian
 
 apt install gcc g++
-apt install libglfw3 libglfw3-dev
 apt install freeglut3 freeglut3-dev
-
+not sure if this is needed
+apt install libglfw3 libglfw3-dev
 
 ls /usr/include/ | grep GL
 ls /usr/include/GL/
