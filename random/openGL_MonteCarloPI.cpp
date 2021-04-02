@@ -24,10 +24,12 @@ void drawPoints()
    uniform_real_distribution<double> dist(-1.0, 1.0);
 
    const int nSimulations { 1000 };
-// * * * * * * * *
-	
+	// * * * * * * * *
+	double circle = 0 , square = 0;
+	// * * * * * * * *
     int i,j;
     float h,k;
+	double pi = 0.0;
     float red = 0.0,green = 1.0 ,blue = 0.0;
     //glClearColor(0.4, 0.4, 0.4, 0.4);
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -37,9 +39,12 @@ void drawPoints()
     h = -1.0; k = -1.0;
     glPointSize(1.0);
     glBegin(GL_POINTS);// points
-    for (i = 0; i < 1000000; i++){
+    for (i = 0; i < 100000000; i++){
+		square = (double)i;
       h = dist(PRNG);
       k = dist(PRNG) ;
+		if(h*h + k*k <= 1.0) circle = circle + 1;
+		pi = (double) (4 * (circle / square));
       if ((h*h + k*k)< 1.0) {
 			red =155.0/255.0; green = 104.0/255.0; blue = 74.0/255.0;
 			plot2Dpoint(h,k,red,green,blue);
@@ -47,11 +52,12 @@ void drawPoints()
 			red = 1.0;green = 1.0 ;blue = 0.0;
 			plot2Dpoint(h,k,red,green,blue);
 	}
-     cout<<h<<" "<<k<<endl;
+	if (i % 1000 == 0)
+    cout<<pi<<" h = "<<h<<" k = "<<k<<endl;
         
         //glFlush();
       }//end i
-
+		 cout<<"PI estimated = "<<pi<<endl;
     
     glEnd();//end points
 
