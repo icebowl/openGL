@@ -37,8 +37,7 @@ void drawPoints()
     glColor3f(1.0, 1.0, 1.0);
     glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
     h = -1.0; k = -1.0;
-    long iterations = 1000000; // 1, 000, 000 , 000 ,000
-    cout<<"\n\n";
+    long iterations = 1000000000000; // 1, 000, 000 , 000 ,000
     glPointSize(1.0);
     glBegin(GL_POINTS);// points
     for (i = 0; i < iterations; i++){
@@ -49,15 +48,13 @@ void drawPoints()
 		pi = (double) (4 * (circle / square));
       if ((h*h + k*k)< 1.0) {
 			red =155.0/255.0; green = 104.0/255.0; blue = 74.0/255.0;
+			plot2Dpoint(h,k,red,green,blue);
 		}else{
 			red = 1.0;green = 1.0 ;blue = 0.0;
-		}
-		
-		if (h < 0.01  && h > -0.01){red = 0.0;green = 0.0 ;blue = 0.0;}
-		if (k < 0.01  && k > -0.01){red = 0.0;green = 0.0 ;blue = 0.0;}
-		plot2Dpoint(h,k,red,green,blue);
-	if ((i % (iterations / 100) == 0) || (i == 1000) || (i == 2000))
-		cout<<pi<<" ";
+			plot2Dpoint(h,k,red,green,blue);
+	}
+	if ((i % (interations / 1) == 0) && (i == 1000) && (i == 2000)
+    cout<<pi<<" h = "<<h<<" k = "<<k<<endl;
         
         //glFlush();
       }//end i
