@@ -21,32 +21,35 @@ void plot2Dpoint(float x,float y, float red, float green, float blue){
 void drawPoints()
 {
 	//random
-	 int lower = 1, upper = 800, count = 1;
+	 int lower = -800, upper = 800, count = 1;
     // Use current time as seed for random generator
     srand(time(0));
     int rInt = getRandom(lower,upper); 
 	
-    int i,j;
-    float h,k;
-    float red = 1.0,green = 0 ,blue = 0.0;
-    glClearColor(0.4, 0.4, 0.4, 0.4);
+    int i,j,getPoint;
+    float h,k,h1,h2,k1,k2,ph1,pk1,ph2,pk2,ph3,pk3,sh,sk;
+    float red = 0.0,green = 0.7 ,blue = 0.0;
+    glClearColor(1.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(1.0, 1.0, 1.0);
     glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
     h = -1.0; k = -1.0;
     glPointSize(1.0);
-	
-	while( count < 1000){
+	ph1 = 0.0; pk1 = 1.0; ph2 = -1.0; pk2 = -1.0; ph3 = 1.0; pk3 = -1.0;
+	while( count < 10000000){
+		getPoint = getRandom(1,3);
+		
 		i = getRandom(lower,upper); 
 		j = getRandom(lower,upper); 
-		h = (float)i/800;
-        k = (float)j/800;
+		sh = (float)i/800;
+        sk = (float)j/800;
         glBegin(GL_POINTS);// points
-			printf("drawpoints  %f %f \n",h,k);
+			//printf("drawpoints  %f %f \n",h,k);
 			plot2Dpoint(h,k,red,green,blue);
         glEnd();//end points
         //glFlush();
-        green = green + (1.0/160.0);
+       
+        count++;
       }//end while count
       
  

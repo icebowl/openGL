@@ -11,7 +11,7 @@ void plot2Dpoint(float x,float y, float red, float green, float blue){
   glBegin(GL_POINTS);
     glVertex2f(x, y);
   glEnd();
-}
+
 
 void drawPoints()
 {
